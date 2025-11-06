@@ -1,6 +1,7 @@
 package task
 
 import (
+	"errors"
 	"todo/internal/application/user"
 	"todo/internal/domain/common"
 	"todo/internal/domain/task"
@@ -36,7 +37,9 @@ func mapTaskToOutputTask(t *task.Task, getUser func(id common.ID) (*user.OutputU
 	if t.AssigneeID().String() != "" {
 		assignee, err = getUser(t.AssigneeID())
 		if err != nil {
-			return nil, err
+			if !errors.Is(err, user.ErrUserNotFound) {
+				return nil, err
+			}
 		}
 	}
 

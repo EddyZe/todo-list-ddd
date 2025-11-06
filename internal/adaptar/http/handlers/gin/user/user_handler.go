@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"todo/internal/application/user"
+	"todo/internal/infrastructure/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,5 +34,11 @@ func New(u UseCase) *Handler {
 }
 
 func (h *Handler) Register(g *gin.RouterGroup) {
+	users := g.Group("/users")
 
+	users.Use(middleware.AuthRequiredGin())
+	{
+		users.GET("", h.all)
+		users.GET("/:id", h.getID)
+	}
 }

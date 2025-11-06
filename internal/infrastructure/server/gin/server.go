@@ -22,14 +22,14 @@ type Server struct {
 func New(cfg *config.ServerConfig, handlers ...Handler) *Server {
 	store := cookie.NewStore([]byte(cfg.CookieSecret))
 	store.Options(sessions.Options{
+		Path:     "/",
 		Secure:   false,
-		SameSite: http.SameSiteLaxMode,
 		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
 	})
 
 	engine := gin.Default()
 	engine.Use(sessions.Sessions("todo-list", store))
-	engine.Use(gin.Recovery())
 
 	apiV1 := engine.Group("/api/v1")
 

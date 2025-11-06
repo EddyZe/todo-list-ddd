@@ -65,7 +65,7 @@ func (r *InMemory) GetByEmail(_ context.Context, email user.Email) (*user.User, 
 
 func (r *InMemory) GetAll(_ context.Context, page, limit int) ([]*user.User, int, error) {
 	if page < 1 {
-		return make([]*user.User, 0), 0, errors.New("страница должна быть больше чем 0")
+		page = 1
 	}
 
 	if limit <= 0 {

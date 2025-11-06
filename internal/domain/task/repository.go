@@ -14,6 +14,7 @@ type Reader interface {
 	GetByID(ctx context.Context, id common.ID) (*Task, error)
 	GetByAuthorID(ctx context.Context, id common.ID) ([]*Task, error)
 	GetByAssigneeID(ctx context.Context, id common.ID) ([]*Task, error)
+	GetAll(ctx context.Context) ([]*Task, error)
 }
 
 type Repository interface {

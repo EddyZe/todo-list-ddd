@@ -18,7 +18,7 @@ func (u *UseCase) DeleteComment(ctx context.Context, comment InputRemoveComment)
 
 	t, err := u.repo.GetByID(ctx, taskID)
 	if err != nil {
-		return err
+		return ErrTaskNotFound
 	}
 
 	t.RemoveComment(commentID)

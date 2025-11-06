@@ -65,3 +65,13 @@ func (r *InMemory) GetByAssigneeID(_ context.Context, assigneeID common.ID) ([]*
 	}
 	return result, nil
 }
+
+func (r *InMemory) GetAll(_ context.Context) ([]*task.Task, error) {
+	result := make([]*task.Task, 0, len(r.memory))
+
+	for _, t := range r.memory {
+		result = append(result, t)
+	}
+
+	return result, nil
+}
